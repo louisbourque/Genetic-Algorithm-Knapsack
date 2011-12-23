@@ -3,6 +3,11 @@
 //json2.js is used to convert objects to string when passing to/from the worker
 importScripts('json2.js');
 //postMessage('{"act":"debug","data":"message"}');
+function Item(weight,cost){
+	this.weight = weight;
+	this.cost = cost;
+	this.used = 0;
+}
 
 /**
 This is the worker. It is used by a1.html to perform all the CPU-intensive
@@ -120,6 +125,7 @@ function iterGA(){
 					child1.chromosome = individual1.chromosome.slice(0,xover).concat(individual2.chromosome.slice(xover));
 					child2.chromosome = individual2.chromosome.slice(0,xover).concat(individual1.chromosome.slice(xover));
 				}
+				
 				child1.fitness = measure_fitness(child1.chromosome);
 				child2.fitness = measure_fitness(child2.chromosome);
 				
@@ -197,10 +203,10 @@ function crossover1(parent1, parent2){
 	for(var child_index = 0;child_index<parent1.length;child_index++){
 		if(child[child_index] == undefined){
 			for(;parent2_index<parent1.length;parent2_index++){
-				if(child.indexOf(parent2[parent2_index])<0){
+				//if(child.indexOf(parent2[parent2_index])<0){
 					child[child_index] = parent2[parent2_index];
 					break;
-				}
+				//}
 			}
 		}
 	}
@@ -220,10 +226,10 @@ function crossover2(parent1, parent2){
 	for(var child_index = 0;child_index<parent1.length;child_index++){
 		if(child[child_index] == undefined){
 			for(;parent2_index<parent1.length;parent2_index++){
-				if(child.indexOf(parent2[parent2_index])<0){
+				//if(child.indexOf(parent2[parent2_index])<0){
 					child[child_index] = parent2[parent2_index];
 					break;
-				}
+				//}
 			}
 		}
 	}
@@ -231,10 +237,12 @@ function crossover2(parent1, parent2){
 }
 
 function insert_into_population(individual,newPopulation){
-	for(var i=0;i<newPopulation.length;i++){
-		if(arrays_equal(individual.chromosome,newPopulation[i].chromosome))
-			return false;
+	var total_weight = 0;
+	for(var i=0;i<individual.chromosome.length;i++){
+		total_weight += individual.chromosome[i].weight;
 	}
+	if(total_weight > config.max_weight) 
+		return false;
 	newPopulation.push(individual);
 	return true;
 }
@@ -287,15 +295,32 @@ function select_from_population(){
 
 function measure_fitness(chromosome){
 	var fitness = 0;
-	
-	
+	for(var i = 0;i<chromosome.length;i++){
+		fitness+=chromosome[i].value;
+	}
 	return fitness;
 }
 
 
 //randomly generate a string
 function generate_chromosome() {
-	var randomchromosome = new Object();
-	
+	var randomchromosome = [];
+	var weight_so_far = 0;
+	var available_items = config.items.slice();
+	while(weight_so_far <= config.max_weight && available_items.length){
+		var index = Math.floor(Math.random() * available_items.length);
+		if((weight_so_far + available_items[index].weight) <= config.max_weight){
+			randomchromosome = randomchromosome.concat(available_items[index]);
+			weight_so_far += available_items[index].weight;
+			//available_items[index].used++;
+			if(available_items[index].used >= config.bound){
+				available_items.splice(index,1);
+			}
+			
+		}else{
+			//item is too big for knapsack, don't use it anymore
+			available_items.splice(index,1);
+		}
+	}
 	return randomchromosome;
 }
