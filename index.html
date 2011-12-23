@@ -1,0 +1,34 @@
+<html>
+<head><title>Genetic Algorithm Knapsack</title>
+<script type="text/javascript" src="json2.js"></script>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="ga.js"></script>
+<script>
+	var _gaq=[['_setAccount','UA-27120534-1'],['_trackPageview'],['_trackPageLoadTime']];
+	(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+	g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+	s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+</head>
+<body onload='init();'>
+
+<input type="button" value="Solve Knapsack Problem" onclick="knapsack_init();">&nbsp;&nbsp;
+<label>&nbsp;Selection:
+<select id="selection">
+<option>rank</option>
+<option>tournament</option>
+</select>
+</label>
+<input type="button" style="color:red;" value="Stop" onclick="stop();">&nbsp;&nbsp;
+
+<br>
+<div id="status"></div>
+<div id="result"></div>
+<br>
+<h2>Purpose</h2>
+<p>The goal of this application is to use a genetic algorithm to find a solution to the <a href='http://en.wikipedia.org/wiki/Knapsack_problem'>Knapsack problem</a>.</p>
+<h2>Genetic Algorithm</h2>
+<p>Genetic Algorithms work by creating a population of randomly generated possible solutions to a problem. Each individual competes against others to see who will reproduce based on a fitness which is determined by how close an individual is to the best solution. Two individuals are selected, and their genetic material (pieces of the possible answer) are combined randomly. As each generation passes, the solutions evolve closer to the ideal answer. The "correct" answer may never be found, but a "close enough" answer usually is.</p>
+<p>Once the optimal solution is found, the algorithm continues to search, because it doesn't know if it has found the best answer yet. In order to avoid searching forever, we limit the number of generations before stopping the search.</p>
+</body>
+</html>
