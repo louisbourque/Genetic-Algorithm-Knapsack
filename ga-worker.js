@@ -6,7 +6,6 @@ importScripts('json2.js');
 function Item(weight,cost){
 	this.weight = weight;
 	this.cost = cost;
-	this.used = 0;
 }
 
 /**
@@ -61,14 +60,14 @@ function iterGA(){
 	else
 		population.sort( function (a,b) { return a.fitness-b.fitness });
 	
-
-	//report best so far
-	var message = new Object();
-	message.act = "generation";
-	message.gen = gen;
-	message.data = population[population.length-1];
-	postMessage(JSON.stringify(message));
-	
+	if(gen > 0){
+		//report best so far
+		var message = new Object();
+		message.act = "generation";
+		message.gen = gen;
+		message.data = population[population.length-1];
+		postMessage(JSON.stringify(message));
+	}
 	//termination sat for run?
 	if(stop_running || config.maxGenerations == gen){
 		run++;
@@ -237,12 +236,20 @@ function crossover2(parent1, parent2){
 }
 
 function insert_into_population(individual,newPopulation){
+	//don't insert into population if child violates max weight rule
 	var total_weight = 0;
 	for(var i=0;i<individual.chromosome.length;i++){
 		total_weight += individual.chromosome[i].weight;
 	}
 	if(total_weight > config.max_weight) 
 		return false;
+	//don't insert into population if child violates bound rule
+	for(var i=0;i<config.items.length;i++){
+		var countArray = individual.chromosome.filter(get_items_filter,config.items[i]);
+		if(countArray.length >= config.bound){
+			return false;
+		}
+	}
 	newPopulation.push(individual);
 	return true;
 }
@@ -301,6 +308,9 @@ function measure_fitness(chromosome){
 	return fitness;
 }
 
+function get_items_filter(item){
+	return this === item;
+}
 
 //randomly generate a string
 function generate_chromosome() {
@@ -312,8 +322,9 @@ function generate_chromosome() {
 		if((weight_so_far + available_items[index].weight) <= config.max_weight){
 			randomchromosome = randomchromosome.concat(available_items[index]);
 			weight_so_far += available_items[index].weight;
-			//available_items[index].used++;
-			if(available_items[index].used >= config.bound){
+			var countArray = randomchromosome.filter(get_items_filter,available_items[index]);
+			
+			if(countArray.length >= config.bound){
 				available_items.splice(index,1);
 			}
 			

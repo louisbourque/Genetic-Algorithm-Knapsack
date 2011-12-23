@@ -1,7 +1,6 @@
 function Item(weight,value){
 	this.weight = weight;
 	this.value = value;
-	this.used = 0;
 }
 
 //config object used to set the parameters of the game. This object is passed to the worker thread to initialize it
