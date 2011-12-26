@@ -22,13 +22,34 @@
 <input type="button" style="color:red;" value="Stop" onclick="stop();">&nbsp;&nbsp;
 
 <br>
+
+<div style="width:62%;float:left;">
 <div id="status"></div>
 <div id="result"></div>
+</div>
+<div style="float:right;width:37%;">
+<h3>Settings</h3>
+<label>Knapsack capacity:<input id='max_weight' type='text' value='15'></label><br>
+<label>Max times an item can be used:<input id='bound' type='text' value='1'></label>
+
+<p>Items:</p>
+
+<ul id='items_list' style='list-style-type:none;'>
+</ul>
+<button id='add_item_button' style='float:right;' onclick='show_add_item();'>Add</button>
+<div id='add_item_form' style='display:none;'>
+<label>Weight:<input id='add_weight' type='text'></label>kg<br>
+<label>Value:<input id='add_value' type='text'></label>$<br>
+<button onclick='add_item();'>Save</button>
+</div>
+</div>
 <br>
+<div style='clear:both;'>
 <h2>Purpose</h2>
 <p>The goal of this application is to use a genetic algorithm to find a solution to the <a href='http://en.wikipedia.org/wiki/Knapsack_problem'>Knapsack problem</a>.</p>
 <h2>Genetic Algorithm</h2>
 <p>Genetic Algorithms work by creating a population of randomly generated possible solutions to a problem. Each individual competes against others to see who will reproduce based on a fitness which is determined by how close an individual is to the best solution. Two individuals are selected, and their genetic material (pieces of the possible answer) are combined randomly. As each generation passes, the solutions evolve closer to the ideal answer. The "correct" answer may never be found, but a "close enough" answer usually is.</p>
 <p>Once the optimal solution is found, the algorithm continues to search, because it doesn't know if it has found the best answer yet. In order to avoid searching forever, we limit the number of generations before stopping the search.</p>
+</div>
 </body>
 </html>
