@@ -1,5 +1,13 @@
 <html>
 <head><title>Genetic Algorithm Knapsack</title>
+<style type='text/css'>
+#items_list input{
+	width:50px;
+}
+#items_list input.name{
+	width:80px;
+}
+</style>
 <script type="text/javascript" src="json2.js"></script>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="ga.js"></script>
@@ -33,10 +41,41 @@
 <label>Max times an item can be used:<input id='bound' type='text' value='1'></label>
 
 <p>Items:</p>
+<button id='add_item_button' onclick='add_item();'>Add</button>
+<button id='remove_item_button' onclick='remove_item();'>Remove</button>
 
-<ul id='items_list' style='list-style-type:none;'>
-</ul>
-<button id='add_item_button' style='float:right;' onclick='show_add_item();'>Add</button>
+<table style='list-style-type:none;'>
+<thead>
+<tr><td>Name</td><td>Weight</td><td>Value</td><td>Number</td></tr>
+</thead>
+<tbody id='items_list'>
+<tr>
+<td><input type='text' class='name' value='x1'></td>
+<td><input type='text' class='weight' value='4'></td>
+<td><input type='text' class='value' value='3'></td>
+<td><input type='text' class='bound' value='1'></td>
+</tr>
+<tr>
+<td><input type='text' class='name' value='x2'></td>
+<td><input type='text' class='weight' value='3'></td>
+<td><input type='text' class='value' value='4'></td>
+<td><input type='text' class='bound' value='2'></td>
+</tr>
+<tr>
+<td><input type='text' class='name' value='x3'></td>
+<td><input type='text' class='weight' value='2'></td>
+<td><input type='text' class='value' value='1'></td>
+<td><input type='text' class='bound' value='1'></td>
+</tr>
+<tr>
+<td><input type='text' class='name' value='x4'></td>
+<td><input type='text' class='weight' value='5'></td>
+<td><input type='text' class='value' value='4'></td>
+<td><input type='text' class='bound' value='1'></td>
+</tr>
+</tbody>
+</table>
+
 <div id='add_item_form' style='display:none;'>
 <label>Weight:<input id='add_weight' type='text'></label>kg<br>
 <label>Value:<input id='add_value' type='text'></label>$<br>
