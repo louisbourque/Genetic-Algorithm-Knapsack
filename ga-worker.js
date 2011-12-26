@@ -3,9 +3,10 @@
 //json2.js is used to convert objects to string when passing to/from the worker
 importScripts('json2.js');
 //postMessage('{"act":"debug","data":"message"}');
-function Item(weight,cost){
+function Item(weight,cost,bound){
 	this.weight = weight;
 	this.cost = cost;
+	this.bount = bound;
 }
 
 /**
@@ -246,7 +247,7 @@ function insert_into_population(individual,newPopulation){
 	//don't insert into population if child violates bound rule
 	for(var i=0;i<config.items.length;i++){
 		var countArray = individual.chromosome.filter(get_items_filter,config.items[i]);
-		if(countArray.length > config.bound){
+		if(countArray.length > config.items[i].bound){
 			return false;
 		}
 	}
@@ -324,7 +325,7 @@ function generate_chromosome() {
 			weight_so_far += available_items[index].weight;
 			var countArray = randomchromosome.filter(get_items_filter,available_items[index]);
 			
-			if(countArray.length >= config.bound){
+			if(countArray.length >= available_items[index].bound){
 				available_items.splice(index,1);
 			}
 			

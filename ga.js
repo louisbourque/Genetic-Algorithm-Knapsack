@@ -1,6 +1,7 @@
-function Item(weight,value){
+function Item(weight,value,bound){
 	this.weight = weight;
 	this.value = value;
+	this.bound = bound;
 }
 
 //config object used to set the parameters of the game. This object is passed to the worker thread to initialize it
@@ -12,7 +13,7 @@ config.mutateProb = 0.02;
 config.selection = "rank";
 config.fitness_order = "asc";
 config.unique_chromosomes = true;
-config.items = [{weight:4,value:3},{weight:3,value:4},{weight:2,value:1}]
+config.items = [{weight:4,value:3,bound:1},{weight:3,value:4,bound:2},{weight:2,value:1,bound:1}];
 var worker;
 
 function init(){
@@ -100,7 +101,7 @@ function add_item(){
 	if(isNaN(parseInt($('#add_weight').val())) || isNaN(parseInt($('#add_value').val()))){
 		return false;
 	}
-	var item = new Item(parseInt($('#add_weight').val()),parseInt($('#add_value').val()));
+	var item = new Item(parseInt($('#add_weight').val()),parseInt($('#add_value').val()),1);
 	config.items.push(item);
 	$('#add_weight').val('')
 	$('#add_value').val('')
