@@ -3,7 +3,8 @@
 //json2.js is used to convert objects to string when passing to/from the worker
 importScripts('json2.js');
 //postMessage('{"act":"debug","data":"message"}');
-function Item(weight,cost,bound){
+function Item(name,weight,cost,bound){
+	this.name = name;
 	this.weight = weight;
 	this.cost = cost;
 	this.bount = bound;

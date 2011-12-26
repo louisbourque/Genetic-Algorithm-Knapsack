@@ -1,4 +1,5 @@
-function Item(weight,value,bound){
+function Item(name,weight,value,bound){
+	this.name = name;
 	this.weight = weight;
 	this.value = value;
 	this.bound = bound;
