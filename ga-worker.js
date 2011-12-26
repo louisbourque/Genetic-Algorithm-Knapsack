@@ -246,7 +246,7 @@ function insert_into_population(individual,newPopulation){
 	//don't insert into population if child violates bound rule
 	for(var i=0;i<config.items.length;i++){
 		var countArray = individual.chromosome.filter(get_items_filter,config.items[i]);
-		if(countArray.length >= config.bound){
+		if(countArray.length > config.bound){
 			return false;
 		}
 	}
