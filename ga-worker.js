@@ -66,8 +66,9 @@ function iterGA(){
 		//report best so far
 		var message = new Object();
 		message.act = "generation";
-		message.gen = gen;
-		message.data = population[population.length-1];
+		message.data = {}
+		message.data.pop = population[population.length-1];
+		message.data.items = config.items;
 		postMessage(JSON.stringify(message));
 	}
 	//termination sat for run?
@@ -75,7 +76,9 @@ function iterGA(){
 		run++;
 		var message = new Object();
 		message.act = "answer";
-		message.data = population[population.length-1];
+		message.data = {}
+		message.data.pop = population[population.length-1];
+		message.data.items = config.items;
 		postMessage(JSON.stringify(message));
 		if(!stop_running && run < config.maxRuns){
 			runTimeout = setTimeout(runGA, 150);

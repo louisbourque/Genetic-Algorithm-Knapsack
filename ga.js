@@ -65,12 +65,12 @@ function handle_worker_message(data){
 		return false;
 	}
 	if(resultObj.act == "generation"){
-		$('#status').html("Fitness: "+resultObj.data.fitness+"<br>");
+		$('#status').html("Fitness: "+resultObj.data.pop.fitness+"<br>");
 		draw(resultObj.data);
 		return true;
 	}
 	if(resultObj.act == "answer"){
-		$('#status').html("Done: Fitness: "+resultObj.data.fitness+"<br>");
+		$('#status').html("Done: Fitness: "+resultObj.data.pop.fitness+"<br>");
 		draw(resultObj.data);
 		return true;
 	}
@@ -78,14 +78,21 @@ function handle_worker_message(data){
 
 function draw(result){
 	var result_weight = 0;
-	var result_str = "Answer: ";
-	for(var i = 0;i<result.chromosome.length;i++){
-		result_weight+=result.chromosome[i].weight;
-		result_str += "("+result.chromosome[i].weight+"kg,"+result.chromosome[i].value+"$)";
-	}
+	var result_str = "<table><thead><tr><td>Count</td><td>Name</td><td>Weight</td><td>Value</td></tr></thead><tbody>";
 	
-	result_str+=" Total Value: "+result.fitness+", Total Weight: "+result_weight+"<br>"
-	$('#result').prepend(result_str);
+	for(var i = 0;i<result.items.length;i++){
+		var countArray = result.pop.chromosome.filter(get_items_filter,result.items[i]);
+		result_str += "<tr><td>"+countArray.length+"</td><td>"+result.items[i].name+"</td><td>"+result.items[i].weight+"kg</td><td>"+result.items[i].value+"$</td></tr>";
+	}
+	for(var i = 0;i<result.pop.chromosome.length;i++){
+		result_weight+=result.pop.chromosome[i].weight;
+	}
+	result_str+="</tbody></table><p> Total Value: "+result.pop.fitness+", Total Weight: "+result_weight+"</p>"
+	$('#result').html(result_str);
+}
+
+function get_items_filter(item){
+	return this.name === item.name;
 }
 
 function remove_item(removeItem){
