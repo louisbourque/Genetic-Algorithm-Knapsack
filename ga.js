@@ -7,10 +7,10 @@ function Item(name,weight,value,bound){
 
 //config object used to set the parameters of the game. This object is passed to the worker thread to initialize it
 var config = new Object();
-config.popSize = 100;
-config.maxGenerations = 20;
+config.popSize = 500;
+config.maxGenerations = 80;
 config.maxRuns = 1;
-config.mutateProb = 0.02;
+config.mutateProb = 0.08;
 config.selection = "rank";
 config.fitness_order = "asc";
 config.unique_chromosomes = false;

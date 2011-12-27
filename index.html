@@ -37,7 +37,7 @@
 </div>
 <div style="float:right;width:37%;">
 <h3>Settings</h3>
-<label>Knapsack capacity:<input id='max_weight' type='text' value='15'></label><br>
+<label>Knapsack capacity:<input id='max_weight' type='text' value='400'></label><br>
 
 <p>Items:</p>
 <button id='add_item_button' onclick='add_item();'>Add</button>
@@ -190,6 +190,118 @@
 <h2>Genetic Algorithm</h2>
 <p>Genetic Algorithms work by creating a population of randomly generated possible solutions to a problem. Each individual competes against others to see who will reproduce based on a fitness which is determined by how close an individual is to the best solution. Two individuals are selected, and their genetic material (pieces of the possible answer) are combined randomly. As each generation passes, the solutions evolve closer to the ideal answer. The "correct" answer may never be found, but a "close enough" answer usually is.</p>
 <p>Once the optimal solution is found, the algorithm continues to search, because it doesn't know if it has found the best answer yet. In order to avoid searching forever, we limit the number of generations before stopping the search.</p>
+<h2>Sample Data Solution</h2>
+<p>To verify the performance of the genetic algorithm, the actual solution is provided below:</p>
+<table>
+<tbody><tr>
+<td><b>Count</b>
+</td>
+<td><b>Item</b>
+</td>
+<th>unit weight
+</th>
+<th>unit value
+</th></tr>
+<tr>
+<td>1
+</td>
+<td>map
+</td>
+<td>9
+</td>
+<td>150
+</td></tr>
+<tr>
+<td>1
+</td>
+<td>compass
+</td>
+<td>13
+</td>
+<td>35
+</td></tr>
+<tr>
+<td>1
+</td>
+<td>water
+</td>
+<td>153
+</td>
+<td>200
+</td></tr>
+<tr>
+<td>2
+</td>
+<td>glucose
+</td>
+<td>15
+</td>
+<td>60
+</td></tr>
+<tr>
+<td>3
+</td>
+<td>banana
+</td>
+<td>27
+</td>
+<td>60
+</td></tr>
+<tr>
+<td>1
+</td>
+<td>cheese
+</td>
+<td>23
+</td>
+<td>30
+</td></tr>
+<tr>
+<td>1
+</td>
+<td>suntan, cream
+</td>
+<td>11
+</td>
+<td>70
+</td></tr>
+<tr>
+<td>1
+</td>
+<td>waterproof, overclothes
+</td>
+<td>43
+</td>
+<td>75
+</td></tr>
+<tr>
+<td>1
+</td>
+<td>note-case
+</td>
+<td>22
+</td>
+<td>80
+</td></tr>
+<tr>
+<td>1
+</td>
+<td>sunglasses
+</td>
+<td>7
+</td>
+<td>20
+</td></tr>
+<tr>
+<td>1
+</td>
+<td>socks
+</td>
+<td>4
+</td>
+<td>50
+</td></tr></tbody></table>
+<p>Total value: 1010<br>Total weight: 396</p>
 </div>
 </body>
 </html>
