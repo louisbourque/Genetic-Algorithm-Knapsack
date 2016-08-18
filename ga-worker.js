@@ -1,7 +1,3 @@
-//import scripts:
-//json2.js is an open source JSON parser, available at http://www.json.org/js.html
-//json2.js is used to convert objects to string when passing to/from the worker
-importScripts('json2.js');
 //postMessage('{"act":"debug","data":"message"}');
 function Item(name,weight,cost,bound){
 	this.name = name;
